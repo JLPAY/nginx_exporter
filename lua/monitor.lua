@@ -32,13 +32,40 @@ local function send(payload)
 end
 
 local function metrics()
+  uri = ngx.var.request_uri or ""
+  i = 1
+  path_string = ""
+  -- 取几层路径，这里2层
+  uri_depth = 2
+  
+  if (uri == "/" or uri == "")
+  then
+     path_string = "/"
+  else
+     for v in string.gmatch(uri, "/[%w-]+") do
+         if ( v == nil )
+         then
+              break
+         end
+
+         path_string = path_string .. v
+
+         i = i + 1
+         if i > uri_depth
+         then 
+             break
+         end
+     end
+  end
+
   return {
     host = ngx.var.host or "-",
     -- 虚拟机没有 ns, ingress, svc
     --namespace = ngx.var.namespace or "-",
     --ingress = ngx.var.ingress_name or "-",
     --service = ngx.var.service_name or "-",
-    path = ngx.var.location_path or "-",
+    path = path_string, 
+    --path = ngx.var.location_path or "-",
 
     method = ngx.var.request_method or "-",
     status = ngx.var.status or "-",
