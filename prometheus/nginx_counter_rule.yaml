@@ -24,14 +24,7 @@ spec:
           expr: sum(increase(nginx_request_duration_seconds_count{status=~"40[^3]{1}|4[^0]{1}."}[1m])) by (host, path)
         - record: job:nginx_request_duration_seconds_count:counter_1min_by_host_path_5XX
           expr: sum(increase(nginx_request_duration_seconds_count{status=~"5.."}[1m])) by (host, path)
-        #host,path,fullurl
-        #- record: job:nginx_request_duration_seconds_count:counter_1min_by_host_path_fullurl_3XX
-        #  expr: sum(increase(nginx_request_duration_seconds_count{status=~"3.."}[1m])) by (host, path, fullurl)
-        #- record: job:nginx_request_duration_seconds_count:counter_1min_by_host_path_fullurl_4XX
-        #  expr: sum(increase(nginx_request_duration_seconds_count{status=~"40[^3]{1}|4[^0]{1}."}[1m])) by (host, path, fullurl)
-        #- record: job:nginx_request_duration_seconds_count:counter_1min_by_host_path_fullurl_5XX
-        #  expr: sum(increase(nginx_request_duration_seconds_count{status=~"5.."}[1m])) by (host, path, fullurl)
-        #host,path,fullurl,instance
+        #host,path,instance
         - record: job:nginx_request_duration_seconds_count:counter_1min_by_host_3XX_path_instance
           expr: sum(increase(nginx_request_duration_seconds_count{status=~"3.."}[1m])) by (host,path,instance)
         - record: job:nginx_request_duration_seconds_count:counter_1min_by_host_5XX_path_instance
@@ -41,10 +34,6 @@ spec:
         #host,path,instance,status
         - record: job:nginx_request_duration_seconds_count:counter_1min_by_host_status_path_instance
           expr: sum(increase(nginx_request_duration_seconds_count{}[1m])) by (host,status,path,instance)
-  #    - record: job:nginx_request_duration_seconds_count:counter_1min_by_host_2XX_path_fullurl
-  #      expr: sum(increase(nginx_request_duration_seconds_count{status=~"2.."}[1m])) by (host,path,fullurl)
-  #    - record: job:nginx_request_duration_seconds_count:counter_1min_by_host_2XX_path_fullurl_instance
-  #      expr: sum(increase(nginx_request_duration_seconds_count{status=~"2.."}[1m])) by (host,path,fullurl,instance)
   #    - record: job:nginx_request_duration_seconds_count:err_counter_403_by_path_instance
   #      expr: sum(nginx_request_duration_seconds_count{status="403"}) by (path, instance)
   #    - record: job:nginx_request_duration_seconds_count:err_counter_403_by_path_host_instance
