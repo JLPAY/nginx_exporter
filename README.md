@@ -85,7 +85,7 @@ http {
 3.  启动nginx_exproter
 ```shell
 # 编译ngx_exporter
-git clone 
+git clone https://gitee.com/xianglinzeng/nginx_exporter.git
 cd nginx_exporte
 go mod tidy
 go build -o nginx_exporter
