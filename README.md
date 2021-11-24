@@ -8,7 +8,7 @@ nginx 通过lua模块monitor.lua 将nginx log 以json格式发到 `/tmp/promethe
 
 
 #### 依赖
-1） nginx 必须要编译有lua模块
+1） nginx 必须要编译有lua模块     
 2） lua 必须要有 cjson 模块
 
 
