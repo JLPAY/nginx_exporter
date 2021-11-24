@@ -91,7 +91,7 @@ go mod tidy
 go build -o nginx_exporter
 
 # nginx_exporter 参数
-# -port 指定启动端口
+# -port 指定启动端口，默认9123端口
 # -v    指定日志级别  1 2 3 4 5 越高日志越详细，默认是2，不指定也行，调试使用5
 ./nginx_exporter -port=9999 -v=5
 ```
