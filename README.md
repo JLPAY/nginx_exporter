@@ -1,7 +1,8 @@
 # nginx_exporter
 
 #### 介绍
-从ingress-nginx官方代码中的expoter迁移出来 用来监控虚拟机上的nginx的expoter
+从ingress-nginx官方代码中的expoter迁移出来 用来监控虚拟机上的nginx的expoter    
+基于官方  controller-v0.49.3 版本移植的代码
 
 #### 软件架构
 nginx 通过lua模块monitor.lua 将nginx log 以json格式发到 `/tmp/prometheus-nginx.socket`, nginx_exporter 通过这个socket获得数据并组装成metrics。 
