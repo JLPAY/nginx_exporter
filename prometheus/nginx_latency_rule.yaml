@@ -4,18 +4,18 @@ metadata:
   labels:
     prometheus: k8s
     role: alert-rules
-  name: prometheus-nginx-rules
+  name: prometheus-nginx-latency-rules
   namespace: monitoring
 spec:
   groups:
     - name: p90
       rules:
       - record: job:nginx_request_duration_seconds:p90_by_host_2XX
-        expr: histogram_quantile(0.9, sum (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by(host, le))
+        expr: histogram_quantile(0.90, sum(rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by (le, host))
       - record: job:nginx_request_duration_seconds:p90_by_host_path_2XX
-        expr: histogram_quantile(0.9, sum (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by(host, path, le))
+        expr: histogram_quantile(0.90, sum (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by(host, path, le))
       - record: job:nginx_request_duration_seconds:p90_by_host_instance_path_2XX
-        expr: histogram_quantile(0.9, sum(rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by (host, instance, path, le))
+        expr: histogram_quantile(0.90, sum(rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by (host, instance, path, le))
     - name: p99
       rules:
       - record: job:nginx_request_duration_seconds:p99_by_host_2XX

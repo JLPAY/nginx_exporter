@@ -4,7 +4,7 @@ metadata:
   labels:
     prometheus: k8s
     role: alert-rules
-  name: prometheus-nginx-rules
+  name: prometheus-nginx-qps-rules
   namespace: monitoring
 spec:
   groups:
