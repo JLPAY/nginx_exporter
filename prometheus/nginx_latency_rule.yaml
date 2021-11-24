@@ -1,0 +1,47 @@
+groups:
+  - name: p90
+    rules:
+    - record: job:nginx_request_duration_seconds:p90_by_host_2XX
+      expr: histogram_quantile(0.9, sum (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by(host, le))
+    - record: job:nginx_request_duration_seconds:p90_by_host_endpoint_2XX
+      expr: histogram_quantile(0.9, sum (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by(host, endpoint, le))
+    - record: job:nginx_request_duration_seconds:p90_by_host_fullurl_2XX
+      expr: histogram_quantile(0.9, sum(rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by (host, fullurl, le))
+    - record: job:nginx_request_duration_seconds:p90_by_host_instance_fullurl_2XX
+      expr: histogram_quantile(0.9, sum(rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by (host, instance, fullurl, le))
+  - name: p99
+    rules:
+    - record: job:nginx_request_duration_seconds:p99_by_host_2XX
+      expr: histogram_quantile(0.99, sum by(host, le) (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])))
+    - record: job:nginx_request_duration_seconds:p99_by_host_endpoint_2XX
+      expr: histogram_quantile(0.99, sum by(host, endpoint, le) (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])))
+    - record: job:nginx_request_duration_seconds:p99_by_host_fullurl_2XX
+      expr: histogram_quantile(0.99, sum(rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by (host, fullurl, le))
+    - record: job:nginx_request_duration_seconds:p99_by_host_instance_fullurl_2XX
+      expr: histogram_quantile(0.99, sum(rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by (host, instance, fullurl, le))
+#    - record: job:nginx_request_duration_seconds:p99_2XX
+#      expr: histogram_quantile(0.99, sum by(le) (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])))
+  - name: p999
+    rules:
+    - record: job:nginx_request_duration_seconds:p999_by_host_2XX
+      expr: histogram_quantile(0.999, sum by(host, le) (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])))
+    - record: job:nginx_request_duration_seconds:p999_by_host_endpoint_2XX
+      expr: histogram_quantile(0.999, sum by(host, endpoint, le) (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])))
+    - record: job:nginx_request_duration_seconds:p999_by_host_fullurl_2XX
+      expr: histogram_quantile(0.999, sum(rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by (host, fullurl, le))
+    - record: job:nginx_request_duration_seconds:p999_by_host_instance_fullurl_2XX
+      expr: histogram_quantile(0.999, sum(rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])) by (host, instance, fullurl, le))
+#    - record: job:nginx_request_duration_seconds:p999_2XX
+#      expr: histogram_quantile(0.999, sum by(le) (rate(nginx_request_duration_seconds_bucket{status=~"2.."}[3m])))
+  - name: avg
+    rules:
+    - record: job:nginx_request_duration_seconds:avg_by_host_2XX
+      expr: sum(rate(nginx_request_duration_seconds_sum{status=~"2.."}[1m])) by (host) / sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[1m])) by (host)
+    - record: job:nginx_request_duration_seconds:avg_by_host_endpoint_2XX
+      expr: sum(rate(nginx_request_duration_seconds_sum{status=~"2.."}[1m])) by (host, endpoint) / sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[1m])) by (host, endpoint)
+    - record: job:nginx_request_duration_seconds:avg_by_host_fullurl_2XX
+      expr: sum(rate(nginx_request_duration_seconds_sum{status=~"2.."}[3m])) by (host, fullurl, le) / sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (host, fullurl, le)
+#    - record: job:nginx_request_duration_seconds:avg_by_host_instance_fullurl_2XX
+#      expr: sum(rate(nginx_request_duration_seconds_sum{status=~"2.."}[3m])) by (host, instance, fullurl, le) / sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (host, instance, fullurl, le)
+#    - record: job:nginx_request_duration_seconds:avg_2XX
+#      expr: sum(rate(nginx_request_duration_seconds_sum{status=~"2.."}[1m])) / sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[1m]))
