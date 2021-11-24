@@ -127,6 +127,58 @@ curl localhost:9123/metrics
 ```
 
 
+4.  使用ServiceMonitor添加到prometheus-opertor
+```yaml
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    prometheus: k8s
+    k8s-apps: nginx-exporter
+  name: nginx-exporter-sm
+  namespace: monitoring
+spec:
+  endpoints:
+  - port: metrics
+    interval: 10s
+    Scheme: http
+    path: /metrics
+  jobLabel: k8s-app
+  selector:
+    matchLabels:
+      metrics: nginx-exporter
 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    # ServiceMonitor 自动发现的关键label
+    metrics: nginx-exporter
+  name: nginx-exporter
+  namespace: monitoring
+spec:
+  ports:
+  - name: metrics
+    #对应 ServiceMonitor 中spec.endpoints.port
+    port: 9123
+    targetPort: 9123
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: nginx-exporter
+  namespace: monitoring
+  labels:
+    metrics: nginx-exporter
+subsets:
+  - addresses:
+      - ip: 172.20.4.117
+    ports:
+      - name: metrics
+        port: 9123
+        protocol: TCP 
+```
 
 
