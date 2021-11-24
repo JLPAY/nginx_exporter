@@ -26,33 +26,33 @@ spec:
         expr: sum(rate(nginx_request_duration_seconds_count{status=~"40[^3]{1}|4[^0]{1}."}[3m])) by (instance, host)
       - record: job:nginx_request_duration_seconds:qps_by_instance_host_5XX
         expr: sum(rate(nginx_request_duration_seconds_count{status=~"5.."}[3m])) by (instance, host)
-      # host, endpoint
-      - record: job:nginx_request_duration_seconds:qps_by_host_endpoint_2XX
-        expr: sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (host, endpoint)
-      - record: job:nginx_request_duration_seconds:qps_by_host_endpoint_3XX
-        expr: sum(rate(nginx_request_duration_seconds_count{status=~"3.."}[3m])) by (host, endpoint)
-      - record: job:nginx_request_duration_seconds:qps_by_host_endpoint_4XX
-        expr: sum(rate(nginx_request_duration_seconds_count{status=~"40[^3]{1}|4[^0]{1}."}[3m])) by (host, endpoint)
-      - record: job:nginx_request_duration_seconds:qps_by_host_endpoint_5XX
-        expr: sum(rate(nginx_request_duration_seconds_count{status=~"5.."}[3m])) by (host, endpoint)
-      # host, endpoint, fullurl
-      - record: job:nginx_request_duration_seconds:qps_by_host_endpoint_fullurl_2XX
-        expr: sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (host, endpoint, fullurl)
-      # host, endpoint, instance
-      - record: job:nginx_request_duration_seconds:qps_by_instance_host_endpoint_2XX
-        expr: sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (instance, host, endpoint)
-      - record: job:nginx_request_duration_seconds:qps_by_instance_host_endpoint_4XX
-        expr: sum(rate(nginx_request_duration_seconds_count{status=~"40[^3]{1}|4[^0]{1}."}[3m])) by (instance, host, endpoint)
-      - record: job:nginx_request_duration_seconds:qps_by_instance_host_endpoint_5XX
-        expr: sum(rate(nginx_request_duration_seconds_count{status=~"5.."}[3m])) by (instance, host, endpoint)
-      - record: job:nginx_request_duration_seconds:qps_by_instance_host_endpoint_403
-        expr: sum(rate(nginx_request_duration_seconds_count{status=~"403"}[3m])) by (instance, host, endpoint)
-      # host, endpoint, fullurl, instance
-      - record: job:nginx_request_duration_seconds:qps_by_instance_host_endpoint_fullurl_2XX
-        expr: sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (instance, host, endpoint, fullurl)
+      # host, path
+      - record: job:nginx_request_duration_seconds:qps_by_host_path_2XX
+        expr: sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (host, path)
+      - record: job:nginx_request_duration_seconds:qps_by_host_path_3XX
+        expr: sum(rate(nginx_request_duration_seconds_count{status=~"3.."}[3m])) by (host, path)
+      - record: job:nginx_request_duration_seconds:qps_by_host_path_4XX
+        expr: sum(rate(nginx_request_duration_seconds_count{status=~"40[^3]{1}|4[^0]{1}."}[3m])) by (host, path)
+      - record: job:nginx_request_duration_seconds:qps_by_host_path_5XX
+        expr: sum(rate(nginx_request_duration_seconds_count{status=~"5.."}[3m])) by (host, path)
+      # host, path, fullurl
+      - record: job:nginx_request_duration_seconds:qps_by_host_path_fullurl_2XX
+        expr: sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (host, path, fullurl)
+      # host, path, instance
+      - record: job:nginx_request_duration_seconds:qps_by_instance_host_path_2XX
+        expr: sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (instance, host, path)
+      - record: job:nginx_request_duration_seconds:qps_by_instance_host_path_4XX
+        expr: sum(rate(nginx_request_duration_seconds_count{status=~"40[^3]{1}|4[^0]{1}."}[3m])) by (instance, host, path)
+      - record: job:nginx_request_duration_seconds:qps_by_instance_host_path_5XX
+        expr: sum(rate(nginx_request_duration_seconds_count{status=~"5.."}[3m])) by (instance, host, path)
+      - record: job:nginx_request_duration_seconds:qps_by_instance_host_path_403
+        expr: sum(rate(nginx_request_duration_seconds_count{status=~"403"}[3m])) by (instance, host, path)
+      # host, path, fullurl, instance
+      #- record: job:nginx_request_duration_seconds:qps_by_instance_host_path_fullurl_2XX
+      #  expr: sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (instance, host, path, fullurl)
   #    - record: job:nginx_request_duration_seconds:qps_by_instance_host_status_method_3XX
   #      expr: sum(rate(nginx_request_duration_seconds_count{status=~"3.."}[3m])) by (instance, host)
   #    - record: job:nginx_request_duration_seconds:qps_by_instance_host_status_method_403
   #      expr: sum(rate(nginx_request_duration_seconds_count{status=~"403"}[3m])) by (instance, host)
-  #    - record: job:nginx_request_duration_seconds:qps_by_endpoint_fullurl_2XX
-  #      expr: sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (endpoint, fullurl)
+  #    - record: job:nginx_request_duration_seconds:qps_by_path_fullurl_2XX
+  #      expr: sum(rate(nginx_request_duration_seconds_count{status=~"2.."}[3m])) by (path, fullurl)
