@@ -95,7 +95,37 @@ go build -o nginx_exporter
 # -port 指定启动端口，默认9123端口
 # -v    指定日志级别  1 2 3 4 5 越高日志越详细，默认是2，不指定也行，调试使用5
 ./nginx_exporter -port=9999 -v=5
+
+
+# 使用systemd管理
+mkdir /opt/nginx_exporter
+cp nginx_exporter /opt/nginx_exporter
+
+cat <<EOF > /usr/lib/systemd/system/nginx_exporter.service
+[Unit]
+Description=nginx_exporter
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/opt/nginx_exporter/nginx_exporter -port=9123 -v=2
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl daemon-reload
+systemctl restart nginx_exporter
+systemctl status nginx_exporter.service
+systemctl enable nginx_exporter
+
+curl localhost:9123/metrics
 ```
+
 
 
 
