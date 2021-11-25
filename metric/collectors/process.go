@@ -128,37 +128,39 @@ func NewNGINXProcess(hostname string) (NGINXProcessCollector, error) {
 
 	p.data = namedProcessData{
 		numProcs: prometheus.NewDesc(
-			prometheus.BuildFQName(PrometheusNamespace, subSystem, "num_procs"),
+			// 这里 PrometheusNamespace = nginx, subSystem = nginx_process 有两个nginx了
+			// 把 PrometheusNamespace 设置为空
+			prometheus.BuildFQName("", subSystem, "num_procs"),
 			"number of processes",
 			nil, constLabels),
 
 		cpuSecs: prometheus.NewDesc(
-			prometheus.BuildFQName(PrometheusNamespace, subSystem, "cpu_seconds_total"),
+			prometheus.BuildFQName("", subSystem, "cpu_seconds_total"),
 			"Cpu usage in seconds",
 			nil, constLabels),
 
 		readBytes: prometheus.NewDesc(
-			prometheus.BuildFQName(PrometheusNamespace, subSystem, "read_bytes_total"),
+			prometheus.BuildFQName("", subSystem, "read_bytes_total"),
 			"number of bytes read",
 			nil, constLabels),
 
 		writeBytes: prometheus.NewDesc(
-			prometheus.BuildFQName(PrometheusNamespace, subSystem, "write_bytes_total"),
+			prometheus.BuildFQName("", subSystem, "write_bytes_total"),
 			"number of bytes written",
 			nil, constLabels),
 
 		memResidentbytes: prometheus.NewDesc(
-			prometheus.BuildFQName(PrometheusNamespace, subSystem, "resident_memory_bytes"),
+			prometheus.BuildFQName("", subSystem, "resident_memory_bytes"),
 			"number of bytes of memory in use",
 			nil, constLabels),
 
 		memVirtualbytes: prometheus.NewDesc(
-			prometheus.BuildFQName(PrometheusNamespace, subSystem, "virtual_memory_bytes"),
+			prometheus.BuildFQName("", subSystem, "virtual_memory_bytes"),
 			"number of bytes of memory in use",
 			nil, constLabels),
 
 		startTime: prometheus.NewDesc(
-			prometheus.BuildFQName(PrometheusNamespace, subSystem, "oldest_start_time_seconds"),
+			prometheus.BuildFQName("", subSystem, "oldest_start_time_seconds"),
 			"start time in seconds since 1970/01/01",
 			nil, constLabels),
 	}
