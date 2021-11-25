@@ -35,7 +35,7 @@ type Collector interface {
 
 type collector struct {
 	//nginxStatus  collectors.NGINXStatusCollector
-	//nginxProcess collectors.NGINXProcessCollector
+	nginxProcess collectors.NGINXProcessCollector
 
 	socket *collectors.SocketCollector
 
@@ -51,18 +51,16 @@ func NewCollector(metricsPerHost bool, registry *prometheus.Registry) (Collector
 		panic(err)
 	}
 
-	//nginxClass := os.Getenv("NGINX_CLASS")
-	//nginxClass := "slb-nginx"
 
 	/*nc, err := collectors.NewNGINXStatus(hostname)
 	if err != nil {
 		return nil, err
 	}*/
 
-	/*pc, err := collectors.NewNGINXProcess(hostname)
+	pc, err := collectors.NewNGINXProcess(hostname)
 	if err != nil {
 		return nil, err
-	}*/
+	}
 
 	s, err := collectors.NewSocketCollector(hostname, metricsPerHost)
 	if err != nil {
@@ -71,15 +69,15 @@ func NewCollector(metricsPerHost bool, registry *prometheus.Registry) (Collector
 
 	return Collector(&collector{
 		//nginxStatus:  nc,
-		//nginxProcess: pc,
+		nginxProcess: pc,
 		socket:       s,
 		registry:     registry,
 	}), nil
 }
 
 func (c *collector) Start() {
-	/*c.registry.MustRegister(c.nginxStatus)
-	c.registry.MustRegister(c.nginxProcess)*/
+	//c.registry.MustRegister(c.nginxStatus)
+	c.registry.MustRegister(c.nginxProcess)
 
 	// nginx基于log的metrics
 	c.registry.MustRegister(c.socket)
@@ -99,8 +97,8 @@ func (c *collector) Stop() {
 	c.registry.Unregister(c.nginxProcess)*/
 	c.registry.Unregister(c.socket)
 
-/*	c.nginxStatus.Stop()
-	c.nginxProcess.Stop()*/
+	//c.nginxStatus.Stop()
+	c.nginxProcess.Stop()
 	c.socket.Stop()
 }
 
