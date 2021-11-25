@@ -193,7 +193,7 @@ subsets:
 
 
 #### grafana 
-作图参考这个大佬的: https://github.com/zrbcool/prometheus-lua-nginx 
+作图参考这个: https://github.com/zrbcool/prometheus-lua-nginx 
 
 ![输入图片说明](picture/image.png)
 
