@@ -12,12 +12,16 @@ nginx_process 通过采集 /proc/PID/ 目录下面的数据，监控cpu、memory
 nginx_status 通过 http_stub_status_module 模块采集nginx的连接数据，nginx编译时要加上 --with-http_stub_status_module;
 配置文件要加上
 ```nginx
-   location /status{
-      stub_status on;
-      access_log off;
-      allow 127.0.0.1;
-      # deny all;
-   }
+    #监控使用端口
+    server {
+        listen 8021;
+        location /stub_status{
+           stub_status on;
+           access_log off;
+           allow 127.0.0.1;
+           # deny all;
+        }
+    }         
 ```
 
 #### 依赖
