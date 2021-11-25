@@ -21,7 +21,9 @@
            allow 127.0.0.1;
            # deny all;
         }
-    }         
+    }   
+    
+`nginx_certificate`  证书监控模块,待完成      
 ```
 
 #### 依赖
