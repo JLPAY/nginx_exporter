@@ -24,6 +24,9 @@ var (
 	MetricsPerHost = true
 	ListenPorts int
 	err error
+	// 新增  http_stub_status_module 模块的path和port
+	NginxStatusPath string
+	NginxStatusPort string
 )
 
 
@@ -37,6 +40,10 @@ func main() {
 
 	// http 启动端口，默认9123
 	flag.IntVar(&ListenPorts, "port", 9123, "http监听端口,默认9123")
+
+	// http_stub_status_module 模块的path和port
+	flag.StringVar(&NginxStatusPath, "statsuspath", "/stub_status", "http_stub_status_module 模块的监听路径,默认/stub_status")
+	flag.StringVar(&NginxStatusPort, "statsusport", "8021", "http_stub_status_module 模块的监听端口,默认8021")
 
 	// parse klog/v2 flags
 	flag.Parse()
@@ -57,7 +64,7 @@ func main() {
 	mc := metric.NewDummyCollector()
 
 	if EnableMetrics {
-		mc, err = metric.NewCollector(MetricsPerHost, reg)
+		mc, err = metric.NewCollector(NginxStatusPath, NginxStatusPort, MetricsPerHost, reg)
 		if err != nil {
 			println(time.Now().Format(time.UnixDate),": ","Error creating prometheus collector:  %v", err)
 		}

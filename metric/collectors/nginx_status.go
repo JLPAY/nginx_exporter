@@ -16,12 +16,15 @@ version: controller-v0.49.3
 package collectors
 
 import (
+	"fmt"
+	"io/ioutil"
 	"log"
+	"net/http"
 	"regexp"
 	"strconv"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"k8s.io/ingress-nginx/internal/nginx"
+	//"k8s.io/ingress-nginx/internal/nginx"
 	"k8s.io/klog/v2"
 )
 
@@ -38,6 +41,10 @@ type (
 		scrapeChan chan scrapeRequest
 
 		data *nginxStatusData
+
+		// 新增 statusPath,statusPort 两个属性
+		statusPath string
+		statusPort string
 	}
 
 	nginxStatusData struct {
@@ -73,10 +80,12 @@ type NGINXStatusCollector interface {
 }
 
 // NewNGINXStatus returns a new prometheus collector the default nginx status module
-func NewNGINXStatus(hostname string) (NGINXStatusCollector, error) {
+func NewNGINXStatus(NginxStatusPath, NginxStatusPort,hostname string) (NGINXStatusCollector, error) {
 
 	p := nginxStatusCollector{
 		scrapeChan: make(chan scrapeRequest),
+		statusPath: NginxStatusPath,
+		statusPort: NginxStatusPort,
 	}
 
 	// controller_pod修改为Hostname
@@ -163,10 +172,33 @@ func parse(data string) *basicStatus {
 	}
 }
 
+
+// 把 NewGetStatusRequest cp 过来
+func NewGetStatusRequest(path, port string) (int, []byte, error) {
+	url := fmt.Sprintf("http://127.0.0.1:%v%v", port, path)
+
+	client := http.Client{}
+	res, err := client.Get(url)
+	if err != nil {
+		return 0, nil, err
+	}
+	defer res.Body.Close()
+
+	data, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return 0, nil, err
+	}
+
+	return res.StatusCode, data, nil
+}
+
+
 // nginxStatusCollector scrape the nginx status
+// 这个方法要修改一下, 新增两个变量 NginxStatusPath  NginxStatusPort
 func (p nginxStatusCollector) scrape(ch chan<- prometheus.Metric) {
-	klog.V(3).InfoS("starting scraping socket", "path", nginx.StatusPath)
-	status, data, err := nginx.NewGetStatusRequest(nginx.StatusPath)
+	klog.V(3).InfoS("starting scraping socket", "path", p.statusPath, "port", p.statusPort)
+	//status, data, err := nginx.NewGetStatusRequest(nginx.StatusPath)
+	status, data, err := NewGetStatusRequest(p.statusPath, p.statusPort)
 	if err != nil {
 		log.Printf("%v", err)
 		klog.Warningf("unexpected error obtaining nginx status info: %v", err)

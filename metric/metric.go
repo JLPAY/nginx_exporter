@@ -45,7 +45,7 @@ type collector struct {
 }
 
 // NewCollector creates a new metric collector the for ingress controller
-func NewCollector(metricsPerHost bool, registry *prometheus.Registry) (Collector, error) {
+func NewCollector(NginxStatusPath, NginxStatusPort string,metricsPerHost bool, registry *prometheus.Registry) (Collector, error) {
 
 	//podName := os.Getenv("POD_NAME")
 	hostname, err := os.Hostname()
@@ -54,7 +54,7 @@ func NewCollector(metricsPerHost bool, registry *prometheus.Registry) (Collector
 	}
 
 
-	nc, err := collectors.NewNGINXStatus(hostname)
+	nc, err := collectors.NewNGINXStatus( NginxStatusPath, NginxStatusPort,hostname)
 	if err != nil {
 		return nil, err
 	}
