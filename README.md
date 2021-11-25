@@ -187,6 +187,8 @@ subsets:
 
 
 #### grafana 
+作图参考这个大佬的: https://github.com/zrbcool/prometheus-lua-nginx 
+
 ![输入图片说明](picture/image.png)
 
 ![输入图片说明](picture/nginx_host.pngimage.png)
