@@ -87,14 +87,14 @@ func (c *collector) Start() {
 	/*go func() {
 		time.Sleep(5 * time.Second)
 		c.nginxStatus.Start()
-	}()
-	go c.nginxProcess.Start()*/
+	}()*/
+	go c.nginxProcess.Start()
 	go c.socket.Start()
 }
 
 func (c *collector) Stop() {
-	/*c.registry.Unregister(c.nginxStatus)
-	c.registry.Unregister(c.nginxProcess)*/
+	//c.registry.Unregister(c.nginxStatus)
+	c.registry.Unregister(c.nginxProcess)
 	c.registry.Unregister(c.socket)
 
 	//c.nginxStatus.Stop()
