@@ -112,6 +112,10 @@ go build -o nginx_exporter
 # nginx_exporter 参数
 # -port 指定启动端口，默认9123端口
 # -v    指定日志级别  1 2 3 4 5 越高日志越详细，默认是2，不指定也行，调试使用5
+#  -statuspath string
+#    	http_stub_status_module 模块的监听路径,默认/stub_status (default "/stub_status")
+#  -statusport string
+#    	http_stub_status_module 模块的监听端口,默认8021 (default "8021")
 ./nginx_exporter -port=9999 -v=5
 
 
