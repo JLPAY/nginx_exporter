@@ -186,7 +186,7 @@ subsets:
 #### 告警规则
 | 报警名称  |  表达式 | 采集数据时间（分钟）| 报警触发条件 |
 | --------   | ----------:   | :----: | :----: |
-
+| NginxHighHttp4xxErrorRate | sum(rate(nginx_http_requests_total{status=~"^4.."}[1m])) / sum(rate(nginx_http_requests_total[1m])) * 100 > 5 | 5 | HTTP 4xx错误率过高。 | 
 
 
 
