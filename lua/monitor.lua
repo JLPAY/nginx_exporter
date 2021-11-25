@@ -74,7 +74,7 @@ local function metrics()
     responseLength = tonumber(ngx.var.bytes_sent) or -1,
 
     -- 添加 upstream_addr
-    upstreamAddr = ngx.var.upstream_addr or "-"
+    upstreamAddr = ngx.var.upstream_addr or "-",
     upstreamLatency = tonumber(ngx.var.upstream_connect_time) or -1,
     upstreamResponseTime = tonumber(ngx.var.upstream_response_time) or -1,
     upstreamResponseLength = tonumber(ngx.var.upstream_response_length) or -1,
