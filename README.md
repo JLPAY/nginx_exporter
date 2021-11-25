@@ -215,7 +215,7 @@ subsets:
 
 
 #### grafana 
-作图参考这个: https://github.com/zrbcool/prometheus-lua-nginx 
+grafana的dashboard在grafana目录,预览如下:
 
 ![输入图片说明](picture/image.png)
 
