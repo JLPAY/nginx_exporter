@@ -21,10 +21,10 @@
            allow 127.0.0.1;
            # deny all;
         }
-    }   
-    
-`nginx_certificate`  证书监控模块,待完成      
+    }        
 ```
+
+`nginx_certificate`  证书监控模块,待完成
 
 #### 依赖
 1） nginx 必须要编译有lua模块     
