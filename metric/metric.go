@@ -18,6 +18,8 @@ package metric
 
 import (
 	"os"
+	"time"
+
 	//"time"
 
 	"nginx_exporter/metric/collectors"
@@ -34,7 +36,7 @@ type Collector interface {
 }
 
 type collector struct {
-	//nginxStatus  collectors.NGINXStatusCollector
+	nginxStatus  collectors.NGINXStatusCollector
 	nginxProcess collectors.NGINXProcessCollector
 
 	socket *collectors.SocketCollector
@@ -52,10 +54,10 @@ func NewCollector(metricsPerHost bool, registry *prometheus.Registry) (Collector
 	}
 
 
-	/*nc, err := collectors.NewNGINXStatus(hostname)
+	nc, err := collectors.NewNGINXStatus(hostname)
 	if err != nil {
 		return nil, err
-	}*/
+	}
 
 	pc, err := collectors.NewNGINXProcess(hostname)
 	if err != nil {
@@ -68,7 +70,7 @@ func NewCollector(metricsPerHost bool, registry *prometheus.Registry) (Collector
 	}
 
 	return Collector(&collector{
-		//nginxStatus:  nc,
+		nginxStatus:  nc,
 		nginxProcess: pc,
 		socket:       s,
 		registry:     registry,
@@ -76,7 +78,7 @@ func NewCollector(metricsPerHost bool, registry *prometheus.Registry) (Collector
 }
 
 func (c *collector) Start() {
-	//c.registry.MustRegister(c.nginxStatus)
+	c.registry.MustRegister(c.nginxStatus)
 	c.registry.MustRegister(c.nginxProcess)
 
 	// nginx基于log的metrics
@@ -84,20 +86,20 @@ func (c *collector) Start() {
 
 	// the default nginx-tmpl.conf does not contains
 	// a server section with the status port
-	/*go func() {
+	go func() {
 		time.Sleep(5 * time.Second)
 		c.nginxStatus.Start()
-	}()*/
+	}()
 	go c.nginxProcess.Start()
 	go c.socket.Start()
 }
 
 func (c *collector) Stop() {
-	//c.registry.Unregister(c.nginxStatus)
+	c.registry.Unregister(c.nginxStatus)
 	c.registry.Unregister(c.nginxProcess)
 	c.registry.Unregister(c.socket)
 
-	//c.nginxStatus.Stop()
+	c.nginxStatus.Stop()
 	c.nginxProcess.Stop()
 	c.socket.Stop()
 }
