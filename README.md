@@ -5,11 +5,11 @@
 基于官方  controller-v0.49.3 版本移植的代码
 
 #### 软件架构
-nginx 通过lua模块monitor.lua 将nginx log 以json格式发到 `/tmp/prometheus-nginx.socket`, nginx_exporter 通过这个socket获得数据并组装成metrics。 
+`nginx_socket` 通过lua模块monitor.lua 将nginx log 以json格式发到 `/tmp/prometheus-nginx.socket`, nginx_exporter 通过这个socket获得数据并组装成metrics。 
 
-nginx_process 通过采集 /proc/PID/ 目录下面的数据，监控cpu、memory、IO ;  
+`nginx_process` 通过采集 /proc/PID/ 目录下面的数据，监控cpu、memory、IO ;  
 
-nginx_status 通过 http_stub_status_module 模块采集nginx的连接数据，nginx编译时要加上 --with-http_stub_status_module;
+`nginx_status` 通过 http_stub_status_module 模块采集nginx的连接数据，nginx编译时要加上 --with-http_stub_status_module;
 配置文件要加上
 ```nginx
     #监控使用端口
