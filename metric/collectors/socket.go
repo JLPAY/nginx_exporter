@@ -119,7 +119,7 @@ func NewSocketCollector(hostname string, metricsPerHost bool) (*SocketCollector,
 	constLabels := prometheus.Labels{
 		/*"controller_namespace": namespace,
 		"controller_class":     class,*/
-		"controller_host":       hostname,
+		"hostname":       hostname,
 	}
 
 	requestTags := requestTags
@@ -466,5 +466,5 @@ func handleMessages(conn io.ReadCloser, fn func([]byte)) {
 func deleteConstants(labels prometheus.Labels) {
 /*	delete(labels, "controller_namespace")
 	delete(labels, "controller_class")*/
-	delete(labels, "controller_host")
+	delete(labels, "hostname")
 }
