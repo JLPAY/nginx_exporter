@@ -194,7 +194,6 @@ func NewGetStatusRequest(path, port string) (int, []byte, error) {
 
 
 // nginxStatusCollector scrape the nginx status
-// 这个方法要修改一下, 新增两个变量 NginxStatusPath  NginxStatusPort
 func (p nginxStatusCollector) scrape(ch chan<- prometheus.Metric) {
 	klog.V(3).InfoS("starting scraping socket", "path", p.statusPath, "port", p.statusPort)
 	//status, data, err := nginx.NewGetStatusRequest(nginx.StatusPath)

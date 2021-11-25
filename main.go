@@ -42,8 +42,8 @@ func main() {
 	flag.IntVar(&ListenPorts, "port", 9123, "http监听端口,默认9123")
 
 	// http_stub_status_module 模块的path和port
-	flag.StringVar(&NginxStatusPath, "statsuspath", "/stub_status", "http_stub_status_module 模块的监听路径,默认/stub_status")
-	flag.StringVar(&NginxStatusPort, "statsusport", "8021", "http_stub_status_module 模块的监听端口,默认8021")
+	flag.StringVar(&NginxStatusPath, "statuspath", "/stub_status", "http_stub_status_module 模块的监听路径,默认/stub_status")
+	flag.StringVar(&NginxStatusPort, "statusport", "8021", "http_stub_status_module 模块的监听端口,默认8021")
 
 	// parse klog/v2 flags
 	flag.Parse()
