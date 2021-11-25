@@ -189,4 +189,6 @@ subsets:
 #### grafana 
 ![输入图片说明](picture/image.png)
 
+![输入图片说明](picture/nginx_host.pngimage.png)
 
+![输入图片说明](picture/nginx_host_pathimage.png)
