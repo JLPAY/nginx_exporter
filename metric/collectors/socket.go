@@ -197,7 +197,7 @@ func NewSocketCollector(hostname string, metricsPerHost bool) (*SocketCollector,
 
 		upstreamLatency: prometheus.NewSummaryVec(
 			prometheus.SummaryOpts{
-				Name:        "ingress_upstream_latency_seconds",
+				Name:        "upstream_latency_seconds",
 				Help:        "Upstream service latency per Ingress",
 				Namespace:   PrometheusNamespace,
 				ConstLabels: constLabels,
@@ -218,7 +218,7 @@ func NewSocketCollector(hostname string, metricsPerHost bool) (*SocketCollector,
 
 		prometheus.BuildFQName(PrometheusNamespace, "", "bytes_sent"): sc.bytesSent,
 
-		prometheus.BuildFQName(PrometheusNamespace, "", "ingress_upstream_latency_seconds"): sc.upstreamLatency,
+		prometheus.BuildFQName(PrometheusNamespace, "", "upstream_latency_seconds"): sc.upstreamLatency,
 	}
 
 	return sc, nil
