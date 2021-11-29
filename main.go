@@ -9,10 +9,11 @@ import (
 	"os"
 	"time"
 
+	"nginx_exporter/metric"
+
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"k8s.io/klog/v2"
-	"nginx_exporter/metric"
 )
 
 var (
@@ -20,15 +21,14 @@ var (
 		MetricsPerHost, _ = strconv.ParseBool(os.Getenv("MetricsPerHost"))
 		ListenPorts, _ = strconv.ParseInt(os.Getenv("ListenPorts"), 10, 64)*/
 
-	EnableMetrics = true
+	EnableMetrics  = true
 	MetricsPerHost = true
-	ListenPorts int
-	err error
+	ListenPorts    int
+	err            error
 	// 新增  http_stub_status_module 模块的path和port
 	NginxStatusPath string
 	NginxStatusPort string
 )
-
 
 func main() {
 
@@ -66,7 +66,7 @@ func main() {
 	if EnableMetrics {
 		mc, err = metric.NewCollector(NginxStatusPath, NginxStatusPort, MetricsPerHost, reg)
 		if err != nil {
-			println(time.Now().Format(time.UnixDate),": ","Error creating prometheus collector:  %v", err)
+			println(time.Now().Format(time.UnixDate), ": ", "Error creating prometheus collector:  %v", err)
 		}
 	}
 	mc.Start()
@@ -115,5 +115,5 @@ func startHTTPServer(port int, mux *http.ServeMux) {
 		WriteTimeout:      300 * time.Second,
 		IdleTimeout:       120 * time.Second,
 	}
-	println(time.Now().Format(time.UnixDate),": ", server.ListenAndServe())
+	println(time.Now().Format(time.UnixDate), ": ", server.ListenAndServe())
 }

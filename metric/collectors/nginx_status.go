@@ -80,7 +80,7 @@ type NGINXStatusCollector interface {
 }
 
 // NewNGINXStatus returns a new prometheus collector the default nginx status module
-func NewNGINXStatus(NginxStatusPath, NginxStatusPort,hostname string) (NGINXStatusCollector, error) {
+func NewNGINXStatus(NginxStatusPath, NginxStatusPort, hostname string) (NGINXStatusCollector, error) {
 
 	p := nginxStatusCollector{
 		scrapeChan: make(chan scrapeRequest),
@@ -92,7 +92,7 @@ func NewNGINXStatus(NginxStatusPath, NginxStatusPort,hostname string) (NGINXStat
 	constLabels := prometheus.Labels{
 		//"controller_namespace": namespace,
 		//"controller_class":     ingressClass,
-		"hostname":       hostname,
+		"hostname": hostname,
 	}
 
 	p.data = &nginxStatusData{
@@ -172,7 +172,6 @@ func parse(data string) *basicStatus {
 	}
 }
 
-
 // 把 NewGetStatusRequest cp 过来
 func NewGetStatusRequest(path, port string) (int, []byte, error) {
 	url := fmt.Sprintf("http://127.0.0.1:%v%v", port, path)
@@ -191,7 +190,6 @@ func NewGetStatusRequest(path, port string) (int, []byte, error) {
 
 	return res.StatusCode, data, nil
 }
-
 
 // nginxStatusCollector scrape the nginx status
 func (p nginxStatusCollector) scrape(ch chan<- prometheus.Metric) {

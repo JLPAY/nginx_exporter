@@ -123,7 +123,7 @@ func NewNGINXProcess(hostname string) (NGINXProcessCollector, error) {
 	constLabels := prometheus.Labels{
 		//"controller_namespace": namespace,
 		//"controller_class":     ingressClass,
-		"hostname":       hostname,
+		"hostname": hostname,
 	}
 
 	p.data = namedProcessData{

@@ -23,6 +23,7 @@ import (
 	//"time"
 
 	"nginx_exporter/metric/collectors"
+
 	"github.com/prometheus/client_golang/prometheus"
 	"k8s.io/apimachinery/pkg/util/sets"
 )
@@ -45,7 +46,7 @@ type collector struct {
 }
 
 // NewCollector creates a new metric collector the for ingress controller
-func NewCollector(NginxStatusPath, NginxStatusPort string,metricsPerHost bool, registry *prometheus.Registry) (Collector, error) {
+func NewCollector(NginxStatusPath, NginxStatusPort string, metricsPerHost bool, registry *prometheus.Registry) (Collector, error) {
 
 	//podName := os.Getenv("POD_NAME")
 	hostname, err := os.Hostname()
@@ -53,8 +54,7 @@ func NewCollector(NginxStatusPath, NginxStatusPort string,metricsPerHost bool, r
 		panic(err)
 	}
 
-
-	nc, err := collectors.NewNGINXStatus( NginxStatusPath, NginxStatusPort,hostname)
+	nc, err := collectors.NewNGINXStatus(NginxStatusPath, NginxStatusPort, hostname)
 	if err != nil {
 		return nil, err
 	}

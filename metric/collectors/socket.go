@@ -34,7 +34,7 @@ type upstream struct {
 	ResponseLength float64 `json:"upstreamResponseLength"`
 	ResponseTime   float64 `json:"upstreamResponseTime"`
 	// upstream_host
-	UpstreamAddr   string  `json:"upstreamAddr"`
+	UpstreamAddr string `json:"upstreamAddr"`
 	//Status         string  `json:"upstreamStatus"`
 }
 
@@ -54,7 +54,7 @@ type socketData struct {
 	//Namespace string `json:"namespace"`
 	//Ingress   string `json:"ingress"`
 	//Service   string `json:"service"`
-	Path      string `json:"path"`
+	Path string `json:"path"`
 }
 
 // SocketCollector stores prometheus metrics and ingress meta-data
@@ -119,7 +119,7 @@ func NewSocketCollector(hostname string, metricsPerHost bool) (*SocketCollector,
 	constLabels := prometheus.Labels{
 		/*"controller_namespace": namespace,
 		"controller_class":     class,*/
-		"hostname":       hostname,
+		"hostname": hostname,
 	}
 
 	requestTags := requestTags
@@ -181,7 +181,7 @@ func NewSocketCollector(hostname string, metricsPerHost bool) (*SocketCollector,
 			},
 			// labels
 			//[]string{"ingress", "namespace", "status", "service"},
-			[]string{"host","status","upstream_host"},
+			[]string{"host", "status", "upstream_host"},
 		),
 
 		bytesSent: prometheus.NewHistogramVec(
@@ -244,11 +244,11 @@ func (sc *SocketCollector) handleMessage(msg []byte) {
 
 		// Note these must match the order in requestTags at the top
 		requestLabels := prometheus.Labels{
-			"status":    stats.Status,
-			"method":    stats.Method,
-			"path":      stats.Path,
+			"status": stats.Status,
+			"method": stats.Method,
+			"path":   stats.Path,
 			//"upstream_host": stats.UpstreamAddr,
-            /* "namespace": stats.Namespace,
+			/* "namespace": stats.Namespace,
 			"ingress":   stats.Ingress,
 			"service":   stats.Service,*/
 		}
@@ -261,7 +261,7 @@ func (sc *SocketCollector) handleMessage(msg []byte) {
 			//"ingress":   stats.Ingress,
 			//"service":   stats.Service,
 			"host":          stats.Host,
-			"status":    stats.Status,
+			"status":        stats.Status,
 			"upstream_host": stats.UpstreamAddr,
 		}
 
@@ -269,7 +269,7 @@ func (sc *SocketCollector) handleMessage(msg []byte) {
 			//"namespace": stats.Namespace,
 			//"ingress":   stats.Ingress,
 			//"service":   stats.Service,
-			"host": stats.Host,
+			"host":          stats.Host,
 			"upstream_host": stats.UpstreamAddr,
 			//"path": stats.Path,
 		}
@@ -464,7 +464,7 @@ func handleMessages(conn io.ReadCloser, fn func([]byte)) {
 }
 
 func deleteConstants(labels prometheus.Labels) {
-/*	delete(labels, "controller_namespace")
-	delete(labels, "controller_class")*/
+	/*	delete(labels, "controller_namespace")
+		delete(labels, "controller_class")*/
 	delete(labels, "hostname")
 }
