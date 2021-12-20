@@ -42,7 +42,7 @@ local function metrics()
   then
      path_string = "/"
   else
-     for v in string.gmatch(uri, "/[%w-]+") do
+     for v in string.gmatch(uri, "/[%w-_]+") do
          if ( v == nil )
          then
               break
